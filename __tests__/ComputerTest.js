@@ -7,21 +7,26 @@ describe('Computer 클래스 테스트', () => {
   });
 
   test('스트라이크', () => {
-    expect(computer.strike([1, 2, 3])).toBe(3);
-    expect(computer.strike([1, 5, 6])).toBe(1);
-    expect(computer.strike([1, 5, 3])).toBe(2);
-    expect(computer.strike([7, 5, 9])).toBe(0);
+    expect(computer.gameHint([1, 2, 3])).toEqual({
+      strike: 3,
+      ball: 0,
+      nothing: false,
+    });
   });
 
   test('볼', () => {
-    expect(computer.ball([3, 1, 2])).toBe(3);
-    expect(computer.ball([3, 5, 1])).toBe(2);
-    expect(computer.ball([7, 5, 1])).toBe(1);
-    expect(computer.ball([7, 5, 9])).toBe(0);
+    expect(computer.gameHint([3, 5, 1])).toEqual({
+      strike: 0,
+      ball: 2,
+      nothing: false,
+    });
   });
 
   test('낫싱', () => {
-    expect(computer.nothing([1, 2, 3])).toBe(false);
-    expect(computer.nothing([7, 5, 9])).toBe(true);
+    expect(computer.gameHint([7, 5, 9])).toEqual({
+      strike: 0,
+      ball: 0,
+      nothing: true,
+    });
   });
 });

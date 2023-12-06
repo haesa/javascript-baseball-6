@@ -13,16 +13,24 @@ class Computer {
     return numbers.filter(number => this.#contains(number)).length;
   }
 
-  strike(numbers) {
+  gameHint(numbers) {
+    return {
+      strike: this.#strike(numbers),
+      ball: this.#ball(numbers),
+      nothing: this.#nothing(numbers),
+    };
+  }
+
+  #strike(numbers) {
     return numbers.filter((number, index) => number === this.#numbers[index])
       .length;
   }
 
-  ball(numbers) {
-    return this.#commonNumberCount(numbers) - this.strike(numbers);
+  #ball(numbers) {
+    return this.#commonNumberCount(numbers) - this.#strike(numbers);
   }
 
-  nothing(numbers) {
+  #nothing(numbers) {
     return this.#commonNumberCount(numbers) === 0;
   }
 }
