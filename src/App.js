@@ -1,5 +1,40 @@
+import Computer from './Computer';
+import InputView from './View/InputView';
+import OutputView from './View/OutputView';
+import pickNumber from './Random';
+
 class App {
-  async play() {}
+  #computer;
+
+  async play() {
+    OutputView.printStart();
+    this.#computer = new Computer(pickNumber());
+    await this.#repeatRound();
+    OutputView.printClear();
+    await this.#choiceOption();
+  }
+
+  async #repeatRound() {
+    const numbers = await InputView.readNumbers();
+    const hint = this.#computer.gameHint(numbers);
+    OutputView.printHint(hint);
+
+    if (hint.strike < 3) {
+      await this.#repeatRound();
+    }
+  }
+
+  async #choiceOption() {
+    const option = await InputView.readOption();
+
+    if (option === 1) {
+      this.#replay();
+    }
+  }
+
+  #replay() {
+    this.play();
+  }
 }
 
 export default App;
