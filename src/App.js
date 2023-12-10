@@ -1,3 +1,4 @@
+import { GAME } from './constants';
 import Computer from './Computer';
 import InputView from './View/InputView';
 import OutputView from './View/OutputView';
@@ -19,7 +20,7 @@ class App {
     const hint = this.#computer.gameHint(numbers);
     OutputView.printHint(hint);
 
-    if (hint.strike < 3) {
+    if (GAME.notClear(hint.strike)) {
       await this.#repeatRound();
     }
   }
@@ -27,7 +28,7 @@ class App {
   async #choiceOption() {
     const option = await InputView.readOption();
 
-    if (option === 1) {
+    if (GAME.replay(option)) {
       this.#replay();
     }
   }
