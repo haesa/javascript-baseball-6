@@ -1,3 +1,4 @@
+import { ERROR } from '../src/constants';
 import Validator from '../src/Validator/Validator';
 
 describe('Validator 클래스 테스트', () => {
@@ -6,19 +7,19 @@ describe('Validator 클래스 테스트', () => {
     (input) => {
       expect(() => {
         Validator.numbers(input);
-      }).toThrow('[ERROR] 서로 다른 3자리의 수를 입력하세요.');
+      }).toThrow(ERROR.distinct3DigitNumbers);
     }
   );
 
   test('숫자에 0이 포함되면 예외가 발생한다.', () => {
     expect(() => {
       Validator.numbers('501');
-    }).toThrow('[ERROR] 1과 9 사이의 숫자를 입력하세요.');
+    }).toThrow(ERROR.baseballNumberRange);
   });
 
   test('옵션으로 1 또는 2가 아닌 값을 입력하면 예외가 발생한다.', () => {
     expect(() => {
       Validator.option('a');
-    }).toThrow('[ERROR] 1(재시작) 또는 2(종료)를 입력하세요.');
+    }).toThrow(ERROR.option);
   });
 });
